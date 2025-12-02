@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Learning Land Daycare - A safe, loving, and educational environment for children to grow, explore, and discover every day." />
 
-  <!-- Google Font (opcional, pero se ve más profesional) -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -15,10 +15,10 @@
       --primary-dark: #f57c00;
       --secondary: #4c8dff;
       --accent: #ffde59;
-      --bg: #f7fbff;
-      --text: #1f2933;
-      --radius-xl: 1.75rem;
-      --shadow-soft: 0 14px 35px rgba(15, 23, 42, 0.16);
+      --bg: #050816;
+      --text: #0f172a;
+      --radius-xl: 1.9rem;
+      --shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.35);
       --transition: all 0.3s ease;
     }
 
@@ -30,10 +30,11 @@
 
     body {
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #fff7e8 0, #f7fbff 45%, #e6f1ff 100%);
-      color: var(--text);
+      background: radial-gradient(circle at top, #0b1220 0, #020617 40%, #020617 100%);
+      color: #e5e7eb;
       line-height: 1.6;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     img {
@@ -45,8 +46,6 @@
       text-decoration: none;
       color: inherit;
     }
-
-    /* ---------- Layout base ---------- */
 
     .page-wrapper {
       min-height: 100vh;
@@ -60,9 +59,70 @@
 
     .container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1140px;
       margin: 0 auto;
       padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ---------- Background global animado ---------- */
+
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.68;
+      mix-blend-mode: screen;
+      animation: orbit 22s linear infinite;
+    }
+
+    .bg-orbit::before {
+      background: radial-gradient(circle at center, #f97316 0, transparent 70%);
+      top: -160px;
+      left: -40px;
+    }
+
+    .bg-orbit::after {
+      background: radial-gradient(circle at center, #3b82f6 0, transparent 65%);
+      bottom: -160px;
+      right: -60px;
+      animation-direction: reverse;
+    }
+
+    .star-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(248, 250, 252, 0.3) 0, transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(148, 163, 184, 0.18) 0, transparent 55%);
+      opacity: 0.7;
+    }
+
+    @keyframes orbit {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(20px, -40px, 0) rotate(120deg);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) rotate(360deg);
+      }
     }
 
     /* ---------- Header & Nav ---------- */
@@ -70,42 +130,52 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+      z-index: 40;
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8));
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
     }
 
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 0;
+      padding: 0.8rem 0;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
     .logo-wrap {
-      width: 52px;
-      height: 52px;
-      border-radius: 1.5rem;
+      width: 54px;
+      height: 54px;
+      border-radius: 1.7rem;
       overflow: hidden;
-      background: #fff;
+      background: radial-gradient(circle at 30% 0, #fef3c7 0, #1e293b 60%);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-      transform: translateY(0);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .logo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: inherit;
+      border: 1px solid rgba(248, 250, 252, 0.3);
+      opacity: 0.8;
     }
 
     .logo-wrap:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.18);
+      transform: translateY(-2px) rotate3d(1, -1, 0, 7deg);
+      box-shadow: 0 22px 45px rgba(15, 23, 42, 1);
     }
 
     .brand-text {
@@ -116,26 +186,28 @@
     .brand-text span:first-child {
       font-weight: 700;
       font-size: 1.05rem;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: #f9fafb;
     }
 
     .brand-text span:last-child {
       font-size: 0.8rem;
-      color: #64748b;
+      color: #9ca3af;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.6rem;
       font-size: 0.9rem;
       font-weight: 500;
     }
 
     .nav-links a {
       position: relative;
-      padding-bottom: 0.2rem;
+      color: #e5e7eb;
+      padding-bottom: 0.12rem;
     }
 
     .nav-links a::after {
@@ -147,6 +219,7 @@
       height: 2px;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 8px rgba(96, 165, 250, 0.8);
       transition: width 0.25s ease;
     }
 
@@ -155,127 +228,189 @@
     }
 
     .nav-cta {
-      padding: 0.55rem 1.1rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
+      background: radial-gradient(circle at 0 0, #facc15 0, var(--primary-dark) 45%, #4f46e5 100%);
+      color: #0b1020;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
       cursor: pointer;
-      box-shadow: 0 12px 25px rgba(249, 115, 22, 0.4);
+      box-shadow: 0 18px 40px rgba(248, 113, 22, 0.7);
       transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(248, 250, 252, 0.8), transparent 50%);
+      mix-blend-mode: soft-light;
+      opacity: 0;
+      transform: translateX(-40%);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-cta:hover::before {
+      opacity: 0.9;
+      transform: translateX(0);
     }
 
     .nav-cta:hover {
       transform: translateY(-1px);
       filter: brightness(1.05);
-      box-shadow: 0 16px 32px rgba(37, 99, 235, 0.36);
+      box-shadow: 0 24px 55px rgba(59, 130, 246, 0.8);
     }
 
     .nav-cta:active {
       transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 1);
     }
 
     .nav-toggle {
       display: none;
       border: none;
       background: none;
-      font-size: 1.7rem;
+      font-size: 1.9rem;
       cursor: pointer;
+      color: #e5e7eb;
     }
 
     /* ---------- Hero ---------- */
 
     .hero {
-      padding: 4rem 0 3rem;
+      position: relative;
+      padding: 4.2rem 0 3.6rem;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .hero-orbit .orb {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      animation: spin-orbit 26s linear infinite;
+    }
+
+    .orb.o1 {
+      width: 420px;
+      height: 420px;
+      top: -60px;
+      right: -80px;
+    }
+
+    .orb.o2 {
+      width: 280px;
+      height: 280px;
+      bottom: -40px;
+      left: -120px;
+      animation-duration: 32s;
     }
 
     .hero-grid {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
-      gap: 2.5rem;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.15fr);
+      gap: 2.7rem;
       align-items: center;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.25rem 0.8rem;
+      gap: 0.6rem;
+      padding: 0.25rem 0.85rem;
       border-radius: 999px;
-      font-size: 0.78rem;
-      background: rgba(56, 189, 248, 0.13);
-      color: #0369a1;
-      margin-bottom: 0.9rem;
+      font-size: 0.8rem;
+      background: rgba(45, 212, 191, 0.05);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      margin-bottom: 1rem;
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.35);
     }
 
     .hero-badge-dot {
       width: 9px;
       height: 9px;
       border-radius: 999px;
-      background: #4ade80;
-      box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.35);
+      background: #22c55e;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero-badge span b {
+      color: #fef9c3;
     }
 
     .hero-title {
-      font-size: clamp(2.2rem, 3vw, 3rem);
+      font-size: clamp(2.4rem, 3.3vw, 3.2rem);
       line-height: 1.1;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.75rem;
+      color: #f9fafb;
+      text-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
     }
 
     .hero-title span.highlight {
-      background: linear-gradient(120deg, var(--primary), var(--secondary));
+      background: linear-gradient(120deg, #facc15, #fb923c, #38bdf8);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      text-shadow: none;
     }
 
     .hero-subtitle {
       font-size: 0.98rem;
-      color: #4b5563;
-      max-width: 32rem;
+      color: #cbd5f5;
+      max-width: 30rem;
       margin-bottom: 1.4rem;
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.7rem;
-      font-size: 0.82rem;
-      color: #6b7280;
+      gap: 0.8rem;
+      margin-bottom: 1.6rem;
+      font-size: 0.8rem;
+      color: #e5e7eb;
     }
 
     .hero-meta span {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.25rem 0.7rem;
+      padding: 0.28rem 0.9rem;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 18px rgba(148, 163, 184, 0.25);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 64, 175, 0.85));
+      border: 1px solid rgba(129, 140, 248, 0.5);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.9);
     }
 
     .hero-meta span b {
-      color: #111827;
+      color: #fef9c3;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.8rem;
+      gap: 0.85rem;
       align-items: center;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.6rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.35rem;
-      padding: 0.8rem 1.35rem;
+      gap: 0.4rem;
+      padding: 0.85rem 1.45rem;
       border-radius: 999px;
       font-size: 0.9rem;
       border: none;
@@ -286,77 +421,120 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      box-shadow: 0 20px 40px rgba(248, 113, 22, 0.4);
+      background: radial-gradient(circle at 0 0, #facc15 0, #fb923c 45%, #6366f1 100%);
+      color: #050816;
+      box-shadow: 0 20px 45px rgba(248, 113, 22, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, rgba(248, 250, 252, 0.85), transparent 60%);
+      opacity: 0;
+      transform: translateX(-40%);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      mix-blend-mode: soft-light;
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-      box-shadow: 0 26px 50px rgba(37, 99, 235, 0.45);
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 26px 60px rgba(59, 130, 246, 1);
     }
 
     .btn-outline {
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(255, 255, 255, 0.9);
-      color: #111827;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.95);
     }
 
     .btn-outline:hover {
-      background: #e5edff;
-      border-color: var(--secondary);
+      background: rgba(30, 64, 175, 0.85);
+      border-color: rgba(129, 140, 248, 1);
+      transform: translateY(-1px);
     }
 
     .hero-note {
-      font-size: 0.8rem;
-      color: #6b7280;
+      font-size: 0.82rem;
+      color: #9ca3af;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
     .hero-note-icon {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
-      background: rgba(34, 197, 94, 0.12);
+      background: radial-gradient(circle at 40% 0, #4ade80 0, #166534 70%);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 1rem;
+      box-shadow: 0 0 20px rgba(22, 163, 74, 0.9);
     }
 
     .hero-visual {
       position: relative;
       padding: 1.2rem;
+      transform-style: preserve-3d;
+      perspective: 1200px;
     }
 
     .hero-card {
-      background: linear-gradient(145deg, #ffffff, #f8fbff);
+      background: radial-gradient(circle at 10% 0, #1f2937 0, #020617 70%);
       border-radius: 2rem;
-      padding: 1.3rem;
+      padding: 1.2rem;
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      transform: rotate3d(1, -1.2, 0, 6deg);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .hero-visual:hover .hero-card {
+      transform: rotate3d(1, -1, 0, 0deg) translateY(-4px);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 1);
+      border-color: rgba(251, 191, 36, 0.8);
     }
 
     .hero-photo-main {
       border-radius: 1.5rem;
       overflow: hidden;
-      border: 3px solid #e0edff;
+      border: 2px solid rgba(191, 219, 254, 0.6);
+      position: relative;
+      isolation: isolate;
     }
 
     .hero-photo-main img {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
-      transform: scale(1.02);
-      transition: transform 0.6s ease;
+      transform: scale(1.04);
+      transition: transform 0.7s ease;
     }
 
     .hero-card:hover .hero-photo-main img {
-      transform: scale(1.05);
+      transform: scale(1.08);
+    }
+
+    .hero-photo-glow {
+      position: absolute;
+      inset: -20%;
+      mix-blend-mode: soft-light;
+      opacity: 0.8;
+      background: radial-gradient(circle at 10% 0, rgba(251, 191, 36, 0.4) 0, transparent 60%),
+                  radial-gradient(circle at 90% 100%, rgba(96, 165, 250, 0.45) 0, transparent 60%);
+      pointer-events: none;
     }
 
     .floating-tag {
@@ -365,13 +543,15 @@
       top: 1.3rem;
       padding: 0.5rem 0.9rem;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(15, 23, 42, 0.92);
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
       font-size: 0.78rem;
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.16);
-      animation: float-pulse 3.4s ease-in-out infinite;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      animation: float-soft 3.6s ease-in-out infinite;
+      color: #e5e7eb;
     }
 
     .floating-tag-dot {
@@ -379,6 +559,38 @@
       height: 9px;
       border-radius: 999px;
       background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 1);
+    }
+
+    .hero-mini-card {
+      position: absolute;
+      left: -4px;
+      bottom: 1.5rem;
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      padding: 0.8rem 1rem;
+      border-radius: 1.2rem;
+      font-size: 0.76rem;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 1);
+      max-width: 210px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      animation: float-soft 4.8s ease-in-out infinite;
+    }
+
+    .hero-mini-card span:first-child {
+      font-size: 0.72rem;
+      opacity: 0.75;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-mini-card span:last-child {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: #fef9c3;
     }
 
     .hero-bubbles {
@@ -390,71 +602,74 @@
 
     .bubble {
       position: absolute;
-      border-radius: 999px;
-      opacity: 0.65;
-      filter: blur(0.5px);
-      animation: float-slow 12s ease-in-out infinite;
+      border-radius: 50%;
+      opacity: 0.7;
+      filter: blur(0.7px);
+      animation: float-slow 13s ease-in-out infinite;
     }
 
     .bubble.b1 {
       width: 90px;
       height: 90px;
-      background: rgba(96, 165, 250, 0.3);
-      top: -18px;
-      right: 10%;
+      background: radial-gradient(circle at 30% 0, rgba(96, 165, 250, 0.9) 0, transparent 70%);
+      top: -20px;
+      right: 3%;
       animation-delay: 0s;
     }
 
     .bubble.b2 {
-      width: 70px;
-      height: 70px;
-      background: rgba(251, 191, 36, 0.35);
+      width: 74px;
+      height: 74px;
+      background: radial-gradient(circle at 70% 100%, rgba(251, 191, 36, 0.95) 0, transparent 70%);
       bottom: -16px;
-      left: 6%;
+      left: 8%;
       animation-delay: 1.4s;
     }
 
     .bubble.b3 {
-      width: 52px;
-      height: 52px;
-      background: rgba(45, 212, 191, 0.4);
+      width: 56px;
+      height: 56px;
+      background: radial-gradient(circle at 40% 40%, rgba(45, 212, 191, 1) 0, transparent 70%);
       bottom: 18%;
-      right: -12px;
+      right: -16px;
       animation-delay: 0.8s;
     }
 
-    .hero-mini-card {
-      position: absolute;
-      left: -8px;
-      bottom: 1.4rem;
-      background: #0f172a;
-      color: #e5e7eb;
-      padding: 0.7rem 0.95rem;
-      border-radius: 1.2rem;
-      font-size: 0.75rem;
-      display: inline-flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.55);
-      max-width: 200px;
-      animation: float-soft 4.6s ease-in-out infinite;
+    @keyframes spin-orbit {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
-    .hero-mini-card span:first-child {
-      font-size: 0.7rem;
-      opacity: 0.8;
+    @keyframes float-soft {
+      0%,
+      100% {
+        transform: translateY(0) translateX(0);
+      }
+      50% {
+        transform: translateY(-6px) translateX(4px);
+      }
     }
 
-    .hero-mini-card span:last-child {
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: #fef9c3;
+    @keyframes float-slow {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-18px);
+      }
     }
 
-    /* ---------- Sections base ---------- */
+    /* ---------- Secciones base ---------- */
 
     section {
       padding: 3rem 0;
+      position: relative;
+      z-index: 2;
     }
 
     .section-header {
@@ -466,23 +681,36 @@
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #6b7280;
+      color: #9ca3af;
       margin-bottom: 0.4rem;
     }
 
     .section-title {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       margin-bottom: 0.4rem;
+      color: #f9fafb;
     }
 
     .section-subtitle {
-      color: #6b7280;
+      color: #9ca3af;
       font-size: 0.9rem;
       max-width: 32rem;
       margin: 0 auto;
     }
 
+    .panel {
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.04) 0, rgba(15, 23, 42, 1) 60%);
+      border-radius: 2.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      padding: 1.7rem 1.5rem;
+    }
+
     /* ---------- About ---------- */
+
+    #about {
+      padding-top: 2.2rem;
+    }
 
     .about-grid {
       display: grid;
@@ -491,44 +719,53 @@
       align-items: center;
     }
 
+    .about-text {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
     .pill-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 1rem 0 1.3rem;
+      gap: 0.55rem;
+      margin: 1.1rem 0 1.3rem;
     }
 
     .pill {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.7rem;
+      font-size: 0.76rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 999px;
-      background: rgba(59, 130, 246, 0.08);
-      color: #1d4ed8;
+      background: rgba(30, 64, 175, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(191, 219, 254, 0.9);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
     }
 
     .stat-card {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.8rem;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
     }
 
     .stat-item {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 1.2rem;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.08) 0, rgba(15, 23, 42, 1) 65%);
+      border-radius: 1.3rem;
       padding: 0.8rem;
       text-align: center;
-      box-shadow: 0 10px 26px rgba(148, 163, 184, 0.35);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 1);
+      border: 1px solid rgba(148, 163, 184, 0.7);
     }
 
     .stat-number {
       font-weight: 700;
       font-size: 1.1rem;
+      color: #facc15;
     }
 
     .stat-label {
-      font-size: 0.75rem;
-      color: #6b7280;
+      font-size: 0.76rem;
+      color: #9ca3af;
     }
 
     .about-photo-grid {
@@ -538,14 +775,29 @@
     }
 
     .about-photo-grid .card {
-      border-radius: 1.5rem;
+      border-radius: 1.6rem;
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(148, 163, 184, 0.6);
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 1);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      position: relative;
+      isolation: isolate;
+    }
+
+    .about-photo-grid .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+      transition: transform 0.6s ease;
+    }
+
+    .about-photo-grid .card:hover img {
+      transform: scale(1.09);
     }
 
     .about-photo-grid .card.small {
-      border-radius: 1.3rem;
-      transform: translateY(14%);
+      border-radius: 1.5rem;
+      transform: translateY(16%);
     }
 
     /* ---------- Programs ---------- */
@@ -557,12 +809,13 @@
     }
 
     .program-card {
-      background: rgba(255, 255, 255, 0.96);
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.07) 0, rgba(15, 23, 42, 1) 70%);
       border-radius: var(--radius-xl);
-      padding: 1.1rem 1rem;
-      box-shadow: 0 12px 28px rgba(148, 163, 184, 0.5);
+      padding: 1.1rem 1.05rem;
+      box-shadow: 0 18px 46px rgba(15, 23, 42, 1);
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.75);
       transition: var(--transition);
     }
 
@@ -570,7 +823,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.22), transparent 60%);
+      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.32), transparent 60%);
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
@@ -580,54 +833,55 @@
       opacity: 1;
     }
 
+    .program-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 1);
+    }
+
     .program-icon {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      background: rgba(239, 246, 255, 0.95);
+      font-size: 1.4rem;
+      margin-bottom: 0.55rem;
+      background: radial-gradient(circle at 0 0, #fef9c3 0, #fb923c 35%, #6366f1 100%);
+      box-shadow: 0 12px 30px rgba(248, 113, 22, 1);
     }
 
     .program-title {
       font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
+      color: #f9fafb;
     }
 
     .program-age {
-      font-size: 0.8rem;
-      color: #6b7280;
-      margin-bottom: 0.4rem;
+      font-size: 0.82rem;
+      color: #9ca3af;
+      margin-bottom: 0.45rem;
     }
 
     .program-body {
       font-size: 0.83rem;
-      color: #4b5563;
+      color: #e5e7eb;
     }
 
-    /* ---------- Features ---------- */
-
     .features {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 2.2rem;
-      margin-top: 1rem;
-      padding: 2rem 1.5rem;
-      box-shadow: 0 18px 45px rgba(148, 163, 184, 0.55);
+      margin-top: 1.4rem;
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.2rem;
+      gap: 1.1rem;
     }
 
     .feature-item {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.8rem;
       align-items: flex-start;
     }
 
@@ -635,24 +889,34 @@
       width: 34px;
       height: 34px;
       border-radius: 999px;
-      background: rgba(52, 211, 153, 0.14);
+      background: radial-gradient(circle at 40% 0, #4ade80 0, #16a34a 70%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 1);
     }
 
     .feature-text h4 {
       font-size: 0.9rem;
       margin-bottom: 0.2rem;
+      color: #f9fafb;
     }
 
     .feature-text p {
       font-size: 0.8rem;
-      color: #6b7280;
+      color: #9ca3af;
     }
 
     /* ---------- Gallery ---------- */
+
+    .gallery-panel {
+      background: radial-gradient(circle at 100% 0, rgba(59, 130, 246, 0.14) 0, rgba(15, 23, 42, 1) 70%);
+      border-radius: 2rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 1);
+      padding: 1.6rem 1.4rem;
+    }
 
     .gallery-grid {
       display: grid;
@@ -661,36 +925,42 @@
     }
 
     .gallery-item {
-      border-radius: 1.1rem;
+      border-radius: 1.2rem;
       overflow: hidden;
       position: relative;
       cursor: pointer;
+      isolation: isolate;
     }
 
     .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.02);
+      transform: scale(1.04);
       transition: transform 0.4s ease, filter 0.4s ease;
     }
 
     .gallery-item::after {
-      content: "";
+      content: "View";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, transparent 40%, rgba(15, 23, 42, 0.35) 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0.4rem 0.55rem;
+      font-size: 0.74rem;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent 50%);
+      color: rgba(249, 250, 251, 0.0);
+      transition: color 0.3s ease;
     }
 
     .gallery-item:hover img {
-      transform: scale(1.06);
-      filter: brightness(1.03);
+      transform: scale(1.08);
+      filter: brightness(1.02);
     }
 
     .gallery-item:hover::after {
-      opacity: 1;
+      color: rgba(249, 250, 251, 0.9);
     }
 
     /* ---------- Tour & Contact ---------- */
@@ -702,36 +972,39 @@
     .tour-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 2.2rem;
+      gap: 2.1rem;
       align-items: flex-start;
     }
 
     .info-card,
     .form-card {
-      background: rgba(255, 255, 255, 0.96);
-      border-radius: 1.8rem;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.05) 0, rgba(15, 23, 42, 1) 70%);
+      border-radius: 2rem;
       padding: 1.5rem 1.4rem;
-      box-shadow: 0 18px 40px rgba(148, 163, 184, 0.65);
+      box-shadow: 0 22px 58px rgba(15, 23, 42, 1);
+      border: 1px solid rgba(148, 163, 184, 0.75);
     }
 
     .info-tag {
       font-size: 0.78rem;
       padding: 0.25rem 0.7rem;
       border-radius: 999px;
-      background: rgba(34, 197, 94, 0.09);
-      color: #166534;
+      background: rgba(22, 163, 74, 0.25);
+      color: #bbf7d0;
       display: inline-block;
       margin-bottom: 0.5rem;
+      border: 1px solid rgba(74, 222, 128, 0.8);
     }
 
     .info-card h3 {
       font-size: 1.25rem;
       margin-bottom: 0.4rem;
+      color: #f9fafb;
     }
 
     .info-card p {
       font-size: 0.88rem;
-      color: #4b5563;
+      color: #e5e7eb;
       margin-bottom: 0.9rem;
     }
 
@@ -742,43 +1015,51 @@
 
     .info-list li {
       font-size: 0.85rem;
-      color: #374151;
+      color: #e5e7eb;
       margin-bottom: 0.45rem;
       display: flex;
       align-items: center;
       gap: 0.45rem;
     }
 
+    .info-list li::before {
+      content: "•";
+      color: #facc15;
+      font-size: 1.1rem;
+    }
+
     .info-badge {
       font-size: 0.72rem;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: rgba(59, 130, 246, 0.09);
-      color: #1d4ed8;
+      background: rgba(37, 99, 235, 0.3);
+      color: #bfdbfe;
       display: inline-block;
       margin-top: 0.4rem;
+      border: 1px solid rgba(191, 219, 254, 0.9);
     }
 
     .mini-note {
       font-size: 0.8rem;
-      color: #6b7280;
+      color: #9ca3af;
       margin-top: 0.6rem;
     }
 
     .form-card h3 {
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
+      color: #f9fafb;
     }
 
     .form-card p {
       font-size: 0.8rem;
-      color: #6b7280;
+      color: #9ca3af;
       margin-bottom: 0.9rem;
     }
 
     form {
       display: grid;
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
     .form-row {
@@ -792,6 +1073,7 @@
       font-weight: 500;
       margin-bottom: 0.15rem;
       display: block;
+      color: #e5e7eb;
     }
 
     input,
@@ -801,19 +1083,26 @@
       font-family: inherit;
       font-size: 0.83rem;
       padding: 0.55rem 0.7rem;
-      border-radius: 0.75rem;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(249, 250, 251, 0.95);
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148, 163, 184, 0.85);
+      background: rgba(15, 23, 42, 0.9);
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      color: #e5e7eb;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: var(--secondary);
-      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
-      background: #ffffff;
+      border-color: #a5b4fc;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
     }
 
     textarea {
@@ -823,8 +1112,8 @@
 
     .form-footnote {
       font-size: 0.75rem;
-      color: #9ca3af;
-      margin-top: 0.3rem;
+      color: #6b7280;
+      margin-top: 0.35rem;
     }
 
     .btn-submit {
@@ -836,10 +1125,12 @@
     /* ---------- Footer ---------- */
 
     footer {
-      border-top: 1px solid rgba(148, 163, 184, 0.3);
-      background: rgba(15, 23, 42, 0.96);
+      border-top: 1px solid rgba(30, 64, 175, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(30, 64, 175, 0.6) 0, #020617 50%);
       color: #e5e7eb;
       padding: 1.1rem 0;
+      position: relative;
+      z-index: 2;
     }
 
     .footer-inner {
@@ -861,47 +1152,31 @@
       flex-wrap: wrap;
     }
 
-    /* ---------- Animaciones ---------- */
+    /* ---------- Animaciones de scroll ---------- */
 
-    @keyframes float-pulse {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-4px);
-      }
-    }
-
-    @keyframes float-soft {
-      0%,
-      100% {
-        transform: translateY(0) translateX(0);
-      }
-      50% {
-        transform: translateY(-6px) translateX(3px);
-      }
-    }
-
-    @keyframes float-slow {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-16px);
-      }
-    }
-
-    .animate-on-scroll {
+    .reveal {
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      filter: blur(4px);
+      transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
     }
 
-    .animate-on-scroll.in-view {
+    .reveal.in-view {
       opacity: 1;
       transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .reveal.delay-1 {
+      transition-delay: 0.15s;
+    }
+
+    .reveal.delay-2 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal.delay-3 {
+      transition-delay: 0.45s;
     }
 
     /* ---------- Responsive ---------- */
@@ -914,7 +1189,7 @@
       }
 
       .hero {
-        padding-top: 3rem;
+        padding-top: 3.1rem;
       }
 
       .hero-visual {
@@ -942,12 +1217,12 @@
       .nav-links {
         position: absolute;
         inset: 100% 0 auto;
-        background: rgba(255, 255, 255, 0.98);
-        padding: 0.8rem 1.5rem 1rem;
+        background: rgba(15, 23, 42, 0.98);
+        padding: 0.9rem 1.5rem 1.1rem;
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.8rem;
-        border-bottom: 1px solid rgba(209, 213, 219, 0.7);
+        gap: 0.9rem;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.9);
         transform-origin: top;
         transform: scaleY(0);
         opacity: 0;
@@ -975,7 +1250,7 @@
       }
 
       .hero-title {
-        font-size: 2rem;
+        font-size: 2.1rem;
       }
 
       .programs-grid {
@@ -990,8 +1265,10 @@
         grid-template-columns: minmax(0, 1fr);
       }
 
-      .features {
-        padding: 1.4rem 1.1rem;
+      .panel,
+      .gallery-panel,
+      .info-card,
+      .form-card {
         border-radius: 1.6rem;
       }
 
@@ -1000,18 +1277,30 @@
         align-items: flex-start;
       }
     }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding-top: 3rem;
+      }
+      .hero-meta span {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="bg-orbit"></div>
+  <div class="star-layer"></div>
+
   <div class="page-wrapper">
     <!-- Header / Nav -->
     <header>
       <div class="container">
         <nav class="nav">
           <div class="nav-left">
-            <div class="logo-wrap">
-              <!-- PON AQUÍ TU LOGO -->
-              <!-- Ej: /assets/images/logo-learning-land.png -->
+            <div class="logo-wrap" data-tilt>
+              <!-- LOGO AQUÍ -->
+              <!-- Ej: assets/images/logo-learning-land.png -->
               <img src="assets/images/logo-learning-land.png" alt="Learning Land Daycare Logo" />
             </div>
             <div class="brand-text">
@@ -1038,25 +1327,30 @@
     <main>
       <!-- Hero -->
       <section class="hero">
+        <div class="hero-orbit">
+          <div class="orb o1"></div>
+          <div class="orb o2"></div>
+        </div>
+
         <div class="container">
           <div class="hero-grid">
-            <div class="hero-content animate-on-scroll">
+            <div class="hero-content reveal">
               <div class="hero-badge">
                 <span class="hero-badge-dot"></span>
-                Now accepting new families for <b>2026</b>
+                <span>Now accepting new families for <b>2026</b></span>
               </div>
               <h1 class="hero-title">
-                A <span class="highlight">safe & joyful</span> place for your child to learn, play and grow.
+                A <span class="highlight">safe & joyful</span> space for your child to learn, play & grow.
               </h1>
               <p class="hero-subtitle">
-                At Learning Land Daycare, we blend structure and fun: small groups, warm caregivers, and daily learning
-                moments that feel like play.
+                Learning Land Daycare combines warm caregivers, small groups and playful learning so your child feels
+                excited every morning — and you feel confident every day.
               </p>
 
               <div class="hero-meta">
-                <span>⭐ <b>Licensed daycare</b></span>
+                <span>⭐ <b>Licensed home daycare</b></span>
                 <span>👶 Ages <b>18 months – 5 years</b></span>
-                <span>📍 Located in <b>Nassau County, NY</b></span>
+                <span>📍 <b>Nassau County, NY</b></span>
               </div>
 
               <div class="hero-actions">
@@ -1074,21 +1368,22 @@
 
               <div class="hero-note">
                 <span class="hero-note-icon">✓</span>
-                <span>Quick form · No commitment · We respond within 1 business day.</span>
+                <span>Fast form · No commitment · We reply within 1 business day.</span>
               </div>
             </div>
 
-            <div class="hero-visual animate-on-scroll">
+            <div class="hero-visual reveal delay-1" id="heroVisual">
               <div class="hero-card">
                 <div class="floating-tag">
                   <span class="floating-tag-dot"></span>
-                  <span>Warm teachers · Happy kids</span>
+                  <span>Smiles, songs & story time every day</span>
                 </div>
 
                 <div class="hero-photo-main">
                   <!-- FOTO PRINCIPAL DEL HERO -->
-                  <!-- Ej: /assets/images/classroom-hero.jpg -->
+                  <!-- Ej: assets/images/classroom-hero.jpg -->
                   <img src="assets/images/classroom-hero.jpg" alt="Smiling children playing and learning together" />
+                  <div class="hero-photo-glow"></div>
                 </div>
 
                 <div class="hero-mini-card">
@@ -1110,62 +1405,64 @@
       <!-- About -->
       <section id="about">
         <div class="container">
-          <div class="section-header animate-on-scroll">
+          <div class="section-header reveal">
             <p class="section-eyebrow">About us</p>
             <h2 class="section-title">More than a daycare, a second home</h2>
             <p class="section-subtitle">
-              We focus on social-emotional learning, early academics and strong communication with families — so you
-              always know how your child is doing.
+              We focus on social-emotional skills, early academics and close communication with families so your child
+              feels secure — and you always know what’s happening.
             </p>
           </div>
 
-          <div class="about-grid">
-            <div class="animate-on-scroll">
-              <p>
-                Children learn best when they feel safe, loved and understood. At Learning Land Daycare, we combine
-                structured routines with child-led exploration. Our days include circle time, music, hands-on
-                activities, outdoor play and quiet moments for rest and stories.
-              </p>
+          <div class="panel reveal delay-1">
+            <div class="about-grid">
+              <div class="about-text">
+                <p>
+                  Young children learn best when they feel safe, loved and seen. At Learning Land Daycare, we combine
+                  gentle routines with plenty of play and exploration. Our daily schedule includes circle time, music,
+                  sensory play, outdoor time (weather-permitting) and cozy story moments.
+                </p>
 
-              <div class="pill-list">
-                <span class="pill">Daily learning activities</span>
-                <span class="pill">Secure, clean environment</span>
-                <span class="pill">Healthy snacks</span>
-                <span class="pill">Parent communication</span>
+                <div class="pill-list">
+                  <span class="pill">Daily learning activities</span>
+                  <span class="pill">Secure, clean environment</span>
+                  <span class="pill">Healthy snacks</span>
+                  <span class="pill">Parent photos & updates</span>
+                </div>
+
+                <p>
+                  We view parents as partners. You get simple, friendly communication — so drop-offs feel easy and
+                  pick-ups feel exciting as your child shares their day.
+                </p>
+
+                <div class="stat-card">
+                  <div class="stat-item">
+                    <div class="stat-number">1:6</div>
+                    <div class="stat-label">Small ratios</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Days per week</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Learning moments / day</div>
+                  </div>
+                </div>
               </div>
 
-              <p>
-                We partner with parents as a team. You get regular updates, photos and simple communication so you
-                always feel connected to your child’s day.
-              </p>
-
-              <div class="stat-card">
-                <div class="stat-item">
-                  <div class="stat-number">1:6</div>
-                  <div class="stat-label">Small ratios</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-number">5</div>
-                  <div class="stat-label">Days a week</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-number">12+</div>
-                  <div class="stat-label">Learning activities per day</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="animate-on-scroll">
-              <div class="about-photo-grid">
-                <div class="card">
-                  <!-- FOTO 1 -->
-                  <!-- Ej: /assets/images/kids-playing-blocks.jpg -->
-                  <img src="assets/images/kids-playing-blocks.jpg" alt="Children building with colorful blocks" />
-                </div>
-                <div class="card small">
-                  <!-- FOTO 2 -->
-                  <!-- Ej: /assets/images/teacher-reading.jpg -->
-                  <img src="assets/images/teacher-reading.jpg" alt="Teacher reading a book to children" />
+              <div class="reveal delay-2">
+                <div class="about-photo-grid">
+                  <div class="card">
+                    <!-- FOTO 1 -->
+                    <!-- Ej: assets/images/kids-playing-blocks.jpg -->
+                    <img src="assets/images/kids-playing-blocks.jpg" alt="Children building with colorful blocks" />
+                  </div>
+                  <div class="card small">
+                    <!-- FOTO 2 -->
+                    <!-- Ej: assets/images/teacher-reading.jpg -->
+                    <img src="assets/images/teacher-reading.jpg" alt="Teacher reading a book to children" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -1176,69 +1473,70 @@
       <!-- Programs -->
       <section id="programs">
         <div class="container">
-          <div class="section-header animate-on-scroll">
+          <div class="section-header reveal">
             <p class="section-eyebrow">Programs</p>
             <h2 class="section-title">Age-appropriate learning for every stage</h2>
             <p class="section-subtitle">
-              We group children by age so they can explore, play and grow with peers at a similar developmental level.
+              Children are grouped by age so they can play, learn and grow with peers at a similar developmental level.
             </p>
           </div>
 
-          <div class="programs-grid">
-            <div class="program-card animate-on-scroll">
-              <div class="program-icon">🐣</div>
-              <h3 class="program-title">Toddlers</h3>
-              <p class="program-age">18 – 36 months</p>
-              <p class="program-body">
-                Gentle routines, sensory play and early language. We support your little one as they discover their
-                independence in a safe space.
-              </p>
-            </div>
-
-            <div class="program-card animate-on-scroll">
-              <div class="program-icon">🌈</div>
-              <h3 class="program-title">Preschool</h3>
-              <p class="program-age">3 – 4 years</p>
-              <p class="program-body">
-                Early literacy, numbers, colors and shapes through music, art and hands-on activities — always mixed
-                with plenty of play.
-              </p>
-            </div>
-
-            <div class="program-card animate-on-scroll">
-              <div class="program-icon">🚀</div>
-              <h3 class="program-title">Pre-K readiness</h3>
-              <p class="program-age">4 – 5 years</p>
-              <p class="program-body">
-                Kindergarten readiness skills: following directions, sharing, early writing, problem-solving and
-                building confidence in group settings.
-              </p>
-            </div>
-          </div>
-
-          <div class="features animate-on-scroll">
-            <div class="features-grid">
-              <div class="feature-item">
-                <div class="feature-icon">🛡️</div>
-                <div class="feature-text">
-                  <h4>Safety first</h4>
-                  <p>Secure entry, child-proofed spaces and clear safety routines practiced with the children.</p>
-                </div>
+          <div class="panel reveal delay-1">
+            <div class="programs-grid">
+              <div class="program-card reveal delay-1">
+                <div class="program-icon">🐣</div>
+                <h3 class="program-title">Toddlers</h3>
+                <p class="program-age">18 – 36 months</p>
+                <p class="program-body">
+                  Gentle routines, sensory bins, music and early language. We support big emotions and tiny
+                  milestones in a calm, loving way.
+                </p>
               </div>
 
-              <div class="feature-item">
-                <div class="feature-icon">🍎</div>
-                <div class="feature-text">
-                  <h4>Healthy habits</h4>
-                  <p>Nutritious snacks, handwashing routines and plenty of active play built into every day.</p>
-                </div>
+              <div class="program-card reveal delay-2">
+                <div class="program-icon">🌈</div>
+                <h3 class="program-title">Preschool</h3>
+                <p class="program-age">3 – 4 years</p>
+                <p class="program-body">
+                  Early literacy, numbers, colors and shapes through play-based centers, songs, art and movement games.
+                </p>
               </div>
 
-              <div class="feature-item">
-                <div class="feature-icon">📷</div>
-                <div class="feature-text">
-                  <h4>Parent updates</h4>
-                  <p>Photos and simple daily notes so you never feel far from your child’s day.</p>
+              <div class="program-card reveal delay-3">
+                <div class="program-icon">🚀</div>
+                <h3 class="program-title">Pre-K readiness</h3>
+                <p class="program-age">4 – 5 years</p>
+                <p class="program-body">
+                  Kindergarten prep: following routines, turn-taking, early writing, problem-solving and building
+                  confidence in group activities.
+                </p>
+              </div>
+            </div>
+
+            <div class="features reveal delay-2">
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feature-icon">🛡️</div>
+                  <div class="feature-text">
+                    <h4>Safety first</h4>
+                    <p>Secure entry, childproofed areas and practiced safety routines give you peace of mind.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">🍎</div>
+                  <div class="feature-text">
+                    <h4>Healthy habits</h4>
+                    <p>Nutritious snacks, handwashing, and movement built into the day to support healthy routines.</p>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <div class="feature-icon">📷</div>
+                  <div class="feature-text">
+                    <h4>Parent updates</h4>
+                    <p>Photos and notes so you never feel far from your child, even on busy days at work.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1249,28 +1547,29 @@
       <!-- Gallery -->
       <section id="gallery">
         <div class="container">
-          <div class="section-header animate-on-scroll">
+          <div class="section-header reveal">
             <p class="section-eyebrow">Gallery</p>
             <h2 class="section-title">A peek inside Learning Land</h2>
             <p class="section-subtitle">
-              Bright spaces, inviting materials and cozy corners — designed to help children feel safe, curious and at
-              home.
+              Bright learning corners, cozy reading spots and inviting materials designed for curious little hands.
             </p>
           </div>
 
-          <div class="gallery-grid">
-            <!-- Ajusta las rutas de las imágenes de la galería -->
-            <div class="gallery-item animate-on-scroll">
-              <img src="assets/images/gallery-1.jpg" alt="Indoor play area with toys and books" />
-            </div>
-            <div class="gallery-item animate-on-scroll">
-              <img src="assets/images/gallery-2.jpg" alt="Children painting at a table" />
-            </div>
-            <div class="gallery-item animate-on-scroll">
-              <img src="assets/images/gallery-3.jpg" alt="Cozy reading corner with cushions" />
-            </div>
-            <div class="gallery-item animate-on-scroll">
-              <img src="assets/images/gallery-4.jpg" alt="Outdoor play area with slide and toys" />
+          <div class="gallery-panel reveal delay-1">
+            <div class="gallery-grid">
+              <!-- Ajusta las rutas de las imágenes de la galería -->
+              <div class="gallery-item reveal">
+                <img src="assets/images/gallery-1.jpg" alt="Indoor play area with toys and books" />
+              </div>
+              <div class="gallery-item reveal delay-1">
+                <img src="assets/images/gallery-2.jpg" alt="Children painting at a table" />
+              </div>
+              <div class="gallery-item reveal delay-2">
+                <img src="assets/images/gallery-3.jpg" alt="Cozy reading corner with cushions" />
+              </div>
+              <div class="gallery-item reveal delay-3">
+                <img src="assets/images/gallery-4.jpg" alt="Outdoor play area with slide and toys" />
+              </div>
             </div>
           </div>
         </div>
@@ -1279,42 +1578,41 @@
       <!-- Tour & Contact -->
       <section id="tour" class="tour-section">
         <div class="container">
-          <div class="section-header animate-on-scroll">
+          <div class="section-header reveal">
             <p class="section-eyebrow">Visit us</p>
             <h2 class="section-title">Book a tour or join our waitlist</h2>
             <p class="section-subtitle">
-              Fill out one quick form — we’ll confirm your tour time or waitlist spot and answer any questions you have.
+              Tell us a little about your family and we’ll follow up with tour times and current availability.
             </p>
           </div>
 
           <div class="tour-grid">
-            <div class="info-card animate-on-scroll" id="contact">
+            <div class="info-card reveal delay-1" id="contact">
               <span class="info-tag">Simple & free</span>
-              <h3>How tours work</h3>
+              <h3>What to expect on your tour</h3>
               <p>
-                During your visit, you’ll meet the caregiver, see the classroom and daily routine, and have time to ask
-                questions about your child’s needs.
+                You’ll see our space, meet the caregiver, hear about our schedule and talk through your child’s needs.
+                We keep it relaxed and friendly.
               </p>
               <ul class="info-list">
-                <li>✅ 20–30 minute tour, by appointment</li>
-                <li>✅ You may bring your child with you</li>
-                <li>✅ We walk through safety, schedule and tuition</li>
-                <li>✅ No pressure to decide on the spot</li>
+                <li>20–30 minute visit, by appointment</li>
+                <li>Bring your child if you’d like</li>
+                <li>See our safety, learning and rest areas</li>
+                <li>No pressure to decide on the spot</li>
               </ul>
               <span class="info-badge">Tours available Monday–Friday</span>
               <p class="mini-note">
-                After you submit the form, you’ll receive an email to pick the best day and time for your family.
+                After you submit the form, you’ll receive an email to confirm the day and time that works best for you.
               </p>
             </div>
 
-            <div class="form-card animate-on-scroll">
+            <div class="form-card reveal delay-2">
               <h3>Tell us about your child</h3>
-              <p>Use this form to request a tour or ask about availability. We’ll get back to you as soon as possible.</p>
+              <p>Use this form to request a tour or ask about our waitlist. We’ll respond as soon as we can.</p>
 
               <!-- 
-                OPCIÓN 1 (rápida): mailto (abre el cliente de correo del padre)
-                Cambia YOUR_EMAIL_HERE por tu correo real, por ejemplo:
-                learninglanddaycare@gmail.com
+                OPCIÓN RÁPIDA: mailto
+                Cambia YOUR_EMAIL_HERE por tu correo real (ej: learninglanddaycare@gmail.com)
               -->
               <form
                 action="mailto:YOUR_EMAIL_HERE@example.com"
@@ -1378,8 +1676,8 @@
                   Send request
                 </button>
                 <p class="form-footnote">
-                  This form uses your email app to send your request. For a more advanced form (with automatic
-                  confirmations), you can later connect services like Formspree, FormSubmit or Mailchimp.
+                  This form opens your email app with the information filled in.
+                  Later you can switch to services like Formspree or Mailchimp for automatic confirmations.
                 </p>
               </form>
             </div>
@@ -1403,9 +1701,9 @@
     </footer>
   </div>
 
-  <!-- Pequeño JS para animaciones y menú móvil -->
+  <!-- JS: año, menú móvil, scroll reveal, parallax suave -->
   <script>
-    // Año automático en el footer
+    // Año automático
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // Menú móvil
@@ -1416,15 +1714,15 @@
       navLinks.classList.toggle("open");
     });
 
-    // Animaciones al hacer scroll
-    const animatedEls = document.querySelectorAll(".animate-on-scroll");
+    // Scroll reveal
+    const revealEls = document.querySelectorAll(".reveal");
 
-    const observer = new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("in-view");
-            observer.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
           }
         });
       },
@@ -1433,7 +1731,28 @@
       }
     );
 
-    animatedEls.forEach((el) => observer.observe(el));
+    revealEls.forEach((el) => revealObserver.observe(el));
+
+    // Parallax suave en el hero (tarjeta)
+    const heroVisual = document.getElementById("heroVisual");
+    const heroCard = heroVisual ? heroVisual.querySelector(".hero-card") : null;
+
+    if (heroVisual && heroCard) {
+      heroVisual.addEventListener("mousemove", (e) => {
+        const rect = heroVisual.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        const rotateX = y * -10;
+        const rotateY = x * 10;
+
+        heroCard.style.transform = `rotate3d(1, -1, 0, 6deg) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      heroVisual.addEventListener("mouseleave", () => {
+        heroCard.style.transform = "rotate3d(1, -1.2, 0, 6deg)";
+      });
+    }
   </script>
 </body>
 </html>
